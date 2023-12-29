@@ -46,7 +46,8 @@
         "COUNTYID": "G",
         "COUNTYCODE": "10002",
         "COUNTYNAME": "宜蘭縣",
-        "COUNTYENG": "Yilan County"
+        "COUNTYENG": "Yilan County",
+        "CSVNAME": "yilan_city.csv"
       }
     },
     {
@@ -82,7 +83,8 @@
         "COUNTYID": "N",
         "COUNTYCODE": "10007",
         "COUNTYNAME": "彰化縣",
-        "COUNTYENG": "Changhua County"
+        "COUNTYENG": "Changhua County",
+        "CSVNAME": "changhua_county.csv"
       }
     },
     {
@@ -134,7 +136,8 @@
         "COUNTYID": "M",
         "COUNTYCODE": "10008",
         "COUNTYNAME": "南投縣",
-        "COUNTYENG": "Nantou County"
+        "COUNTYENG": "Nantou County",
+        "CSVNAME": "nantou_county.csv"
       }
     },
     {
@@ -174,7 +177,8 @@
         "COUNTYID": "P",
         "COUNTYCODE": "10009",
         "COUNTYNAME": "雲林縣",
-        "COUNTYENG": "Yunlin County"
+        "COUNTYENG": "Yunlin County",
+        "CSVNAME": "yunlin_county.csv"
       }
     },
     {
@@ -229,7 +233,8 @@
         "COUNTYID": "T",
         "COUNTYCODE": "10013",
         "COUNTYNAME": "屏東縣",
-        "COUNTYENG": "Pingtung County"
+        "COUNTYENG": "Pingtung County",
+        "CSVNAME": "pingtung_county.csv"
       }
     },
     {
@@ -252,7 +257,8 @@
         "COUNTYID": "C",
         "COUNTYCODE": "10017",
         "COUNTYNAME": "基隆市",
-        "COUNTYENG": "Keelung City"
+        "COUNTYENG": "Keelung City",
+        "CSVNAME": "keelung_city.csv"
       }
     },
     {
@@ -274,7 +280,8 @@
         "COUNTYID": "O",
         "COUNTYCODE": "10018",
         "COUNTYNAME": "新竹市",
-        "COUNTYENG": "Hsinchu City"
+        "COUNTYENG": "Hsinchu City",
+        "CSVNAME": "hsinchu_city.csv"
       }
     },
     {
@@ -300,7 +307,8 @@
         "COUNTYID": "A",
         "COUNTYCODE": "63000",
         "COUNTYNAME": "臺北市",
-        "COUNTYENG": "Taipei City"
+        "COUNTYENG": "Taipei City",
+        "CSVNAME": "taipei_city.csv"
       }
     },
     {
@@ -361,7 +369,8 @@
         "COUNTYID": "F",
         "COUNTYCODE": "65000",
         "COUNTYNAME": "新北市",
-        "COUNTYENG": "New Taipei City"
+        "COUNTYENG": "New Taipei City",
+        "CSVNAME": "new_taipei_city.csv"
       }
     },
     {
@@ -411,7 +420,8 @@
         "COUNTYID": "B",
         "COUNTYCODE": "66000",
         "COUNTYNAME": "臺中市",
-        "COUNTYENG": "Taichung City"
+        "COUNTYENG": "Taichung City",
+        "CSVNAME": "taichung_city.csv"
       }
     },
     {
@@ -450,7 +460,8 @@
         "COUNTYID": "D",
         "COUNTYCODE": "67000",
         "COUNTYNAME": "臺南市",
-        "COUNTYENG": "Tainan City"
+        "COUNTYENG": "Tainan City",
+        "CSVNAME": "tainan_city.csv"
       }
     },
     {
@@ -495,7 +506,8 @@
         "COUNTYID": "H",
         "COUNTYCODE": "68000",
         "COUNTYNAME": "桃園市",
-        "COUNTYENG": "Taoyuan City"
+        "COUNTYENG": "Taoyuan City",
+        "CSVNAME": "taoyuan_city.csv"
       }
     },
     {
@@ -534,7 +546,8 @@
         "COUNTYID": "K",
         "COUNTYCODE": "10005",
         "COUNTYNAME": "苗栗縣",
-        "COUNTYENG": "Miaoli County"
+        "COUNTYENG": "Miaoli County",
+        "CSVNAME": "miaoli_county.csv"
       }
     },
     {
@@ -575,7 +588,8 @@
         "COUNTYID": "J",
         "COUNTYCODE": "10004",
         "COUNTYNAME": "新竹縣",
-        "COUNTYENG": "Hsinchu County"
+        "COUNTYENG": "Hsinchu County",
+        "CSVNAME": "hsinchu_county.csv"
       }
     },
     {
@@ -596,7 +610,8 @@
         "COUNTYID": "I",
         "COUNTYCODE": "10020",
         "COUNTYNAME": "嘉義市",
-        "COUNTYENG": "Chiayi City"
+        "COUNTYENG": "Chiayi City",
+        "CSVNAME": "chiayi_city.csv"
       }
     },
     {
@@ -650,7 +665,8 @@
         "COUNTYID": "Q",
         "COUNTYCODE": "10010",
         "COUNTYNAME": "嘉義縣",
-        "COUNTYENG": "Chiayi County"
+        "COUNTYENG": "Chiayi County",
+        "CSVNAME": "chiayi_county.csv"
       }
     },
     {
@@ -708,7 +724,8 @@
         "COUNTYID": "E",
         "COUNTYCODE": "64000",
         "COUNTYNAME": "高雄市",
-        "COUNTYENG": "Kaohsiung City"
+        "COUNTYENG": "Kaohsiung City",
+        "CSVNAME": "kaohsiung_city.csv"
       }
     },
     {
@@ -784,7 +801,8 @@
         "COUNTYID": "V",
         "COUNTYCODE": "10014",
         "COUNTYNAME": "臺東縣",
-        "COUNTYENG": "Taitung County"
+        "COUNTYENG": "Taitung County",
+        "CSVNAME": "taitung_county.csv"
       }
     },
     {
@@ -847,7 +865,8 @@
         "COUNTYID": "U",
         "COUNTYCODE": "10015",
         "COUNTYNAME": "花蓮縣",
-        "COUNTYENG": "Hualien County"
+        "COUNTYENG": "Hualien County",
+        "CSVNAME": "hualien_county.csv"
       }
     }
   ]

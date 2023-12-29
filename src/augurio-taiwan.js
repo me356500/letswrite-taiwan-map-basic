@@ -1,3 +1,346 @@
+
+function stacked_bar_chart(divname, data, categories, ymax, xname, width, height) {
+  var margin = {top: 100, right: 100, bottom: 100, left: 300};
+    width = width - margin.left - margin.right;
+    height = height - margin.top - margin.bottom;
+
+  var tooltip = d3
+  .select(divname)
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+  var svg = d3
+  .select(divname)
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+  var colorScale = d3
+  .scaleOrdinal()
+  .domain(categories)
+  .range(d3.schemeCategory10);
+
+  var xScale = d3
+  .scaleBand()
+  .domain(data.map(d => d[xname]))
+  .range([0, 1000])
+  .padding(0.1);
+
+  var yScale = d3
+    .scaleLinear()
+    .domain([0, ymax]) 
+    .range([height, 0]);
+
+    var stack = d3.stack().keys(categories); 
+  var stackedData = stack(data);
+
+  svg.append("g")
+      .selectAll("g")
+      .data(stackedData)
+      .enter().append("g")
+      .attr("fill", function(d) { 
+          return colorScale(d.key); 
+      })
+      .selectAll("rect")
+      .data(function(d) { return d; })
+      .enter().append("rect")
+      .attr("x", function(d) { 
+          return xScale(d.data[xname]); 
+      })
+      // y position
+      .attr("y", function(d) { 
+        var category = d3.select(this.parentNode).datum().key;
+        var value = d.data[category]; 
+        
+        return yScale(d[1]); 
+        
+      })
+      // height position
+      .attr("height", function(d) { 
+        // d[0] previous points height
+        // d[1] current stack height
+
+        var h = yScale(d[0]) - yScale(d[1])
+
+        return (h); 
+      
+      })
+      .attr("width", xScale.bandwidth())
+      .on("mouseover", function(d) {
+
+        var category = d3.select(this.parentNode).datum().key;
+       
+        var value = d.data[category]; 
+
+        tooltip.html(d.data[xname] + "<br>" + category + " : " + value)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px")
+          .style("opacity", 1);
+
+      })
+      .on("mouseout", function(d) {
+        tooltip.style("opacity", 0);
+      });
+
+
+  svg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0, ${height})`)
+    .call(d3.axisBottom(xScale))
+    .selectAll("text") 
+    .style("text-anchor", "end") 
+    .style("font-size", "22px")
+    .attr("dx", "-0.5em")
+    .attr("dy", "0.5em") 
+    .style("transform", "rotate(-45deg)"); 
+
+
+  svg.append("g")
+    .attr("class", "y-axis")
+    .call(d3.axisLeft(yScale))
+    .selectAll("text") 
+    .style("text-anchor", "end") 
+    .style("font-size", "26px"); 
+
+
+}
+
+function pie_chart(divname, data, type, width, height) {
+
+ 
+
+  var tooltip = d3
+    .select(divname)
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+  var color = d3.scale.ordinal()
+    .domain(type)
+    .range(d3.schemeCategory10);
+
+  var radius = Math.min(width, height) / 2;
+  var donutWidth = 80;
+  var legendRectSize = 18;
+  var legendSpacing = 4;
+
+
+  
+  var svg = d3.select(divname)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .append('g')
+    .attr('transform', 'translate(' + ((width / 2)) +  ',' + ((height / 2)) + ')');
+  
+
+  var arc = d3.arc()
+    .innerRadius(radius - donutWidth)
+    .outerRadius(radius);
+
+  var pie = d3.pie()
+    .value(function(d) { return d.cnt; })
+    .sort(null);
+
+ svg.selectAll('path')
+    .data(pie(data))
+    .enter()
+    .append('path')
+    .attr("class", "pie")
+    .attr('d', arc)
+    .attr('fill', function(d, i) { 
+      return color(d.data.type); 
+    })
+    .attr("id", (d, i) => {return `pie-${i}`})
+    .on("mouseover", function(d, i) {
+
+      tooltip.html("Type: " + d.data["type"] + "<br>" + "cnt : " + d.data["cnt"])
+      .style("left", (d3.event.pageX + 30) + "px")
+      .style("top", (d3.event.pageY - 150) + "px")
+      .style("opacity", 1);
+      d3.selectAll(".pie")
+          .style("fill-opacity", 0.2)
+          .style("transition", "all 0.4s");
+      d3.selectAll(`#pie-${i}`)
+          .style("fill-opacity", 1)
+          .style("transition", "all 0.4s");
+      
+      
+    })
+    .on("mousemove", function(d, i) {
+
+      tooltip.html("Type: " + d.data["type"] + "<br>" + "songs : " + d.data["cnt"])
+      .style("left", (d3.event.pageX + 30) + "px")
+      .style("top", (d3.event.pageY - 150) + "px")
+      .style("opacity", 1);
+      d3.selectAll(".pie")
+          .style("fill-opacity", 0.2)
+          .style("transition", "all 0.4s");
+      d3.selectAll(`#pie-${i}`)
+          .style("fill-opacity", 1)
+          .style("transition", "all 0.4s");
+      
+      
+    })
+    .on("mouseout", function(d) {
+      tooltip.style("opacity", 0);
+    })
+    .on("mouseleave", function(d){
+      d3.selectAll(".pie")
+      .style("fill-opacity", 1)})
+
+  var legend = svg.selectAll('.legend')
+    .data(color.domain())
+    .enter()
+    .append('g')
+    .attr('class', 'legend')
+    .attr('transform', function(d, i) {
+      var offset = (legendRectSize + legendSpacing) * color.domain().length / 2, hor = -2 * legendRectSize;;
+      var vert = i * (legendRectSize + legendSpacing) - offset;
+      return 'translate(' + hor + ',' + vert + ')';
+    });
+
+  legend.append('rect')
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)                                   
+    .style('fill', color)
+    .style('stroke', color);
+    
+  legend.append('text')
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing)
+    .text(function(d) { return d; });
+}
+
+
+var categories_city = [
+  '0', 
+  '0 ~ 54', 
+  '54 ~ 121', 
+  '121 ~ 242', 
+  '252 ~ 453', 
+  '453 ~ 500', 
+  '500 ~ 1000', 
+  ' > 1000'
+];
+
+var categories_17_1 = [
+  '營利所得',
+  '執行業務所得',
+  '薪資所得',
+  '利息所得',
+  '租賃及權利金',
+  '財產交易所得',
+  '機會中獎所得',
+  '股利所得',
+  '退職所得',
+  '其他所得',
+  '稿費所得',
+  '申報大於歸戶',
+];
+
+var categories_16_1 = [
+  '營利所得',
+  '執行業務所得',
+  '薪資所得',
+  '利息所得',
+  '租賃及權利金',
+  '財產交易所得',
+  '機會中獎所得',
+  '股利所得'
+]
+
+function stack_16_1(divname) {
+  d3.csv("./src/16_1.csv", function(d) {
+
+    d = d.slice(0, -1);
+  
+    d.sort(function(a, b) {
+      return b["合 計"] - a["合 計"];
+    });
+  
+    d.forEach(function(data) {
+      delete data["納稅單位"];
+      delete data["合 計"];
+      delete data["薪資收入"];
+  
+    });
+  
+    stacked_bar_chart(divname, d,  categories_16_1, 1094789841, "縣市別", 1000, 1000);
+  });
+}
+
+function stack_17_1(divname) {
+  d3.csv("./src/17_1.csv", function(d) {
+  
+    d = d.slice(0, -1);
+  
+    d.forEach(function(data) {
+      delete data["納稅單位"];
+      delete data["合 計"];
+      delete data["薪資收入"];
+  
+    });
+
+    stacked_bar_chart(divname, d, categories_17_1, 100, "縣市別", 1000, 1000);
+  });
+}
+
+function pie_city(divname, csvname) {
+
+  d3.csv(csvname, function(d) {
+  
+
+    var testdata = [
+      {type: '0', cnt: d[0]["納稅單位"]},
+      {type: '0 ~ 54', cnt: d[1]["納稅單位"]},
+      {type: '54 ~ 121', cnt: d[2]["納稅單位"]},
+      {type: '121 ~ 242', cnt: d[3]["納稅單位"]},
+      {type: '242 ~ 453', cnt: d[4]["納稅單位"]},
+      {type: '453 ~ 500', cnt: d[5]["納稅單位"]},
+      {type: '500 ~ 1000', cnt: d[6]["納稅單位"]},
+      {type: ' > 1000', cnt: d[7]["納稅單位"]}
+    ];
+    pie_chart(divname, testdata, categories_city, 500, 500);
+    
+  });
+}
+
+function stack_city(divname, csvname) {
+
+  d3.csv(csvname, function(d) {
+    
+   
+
+
+    d = d.slice(0, -1);
+    
+    ymax = 0;
+
+    d.forEach(function(data) {
+      if (parseInt(data["合 計"]) > ymax)
+        ymax = parseInt(data["合 計"]);
+    })
+
+    console.log(ymax);
+  
+    d.forEach(function(data) {
+      delete data["納稅單位"];
+      delete data["合 計"];
+  
+    });
+  
+    console.log(d);
+    stacked_bar_chart(divname, d,  categories_16_1, ymax, "級距：萬元", 1000, 700);
+    
+  });
+
+}
+
 const TaiwanMap = new Vue({
   el: '#app',
   data: {
@@ -41,7 +384,7 @@ const TaiwanMap = new Vue({
       var url = 'dist/taiwan.geojson';
       await d3.json(url, (error, geometry) => {
         if (error) throw error;
-
+        /*
         svg
           .selectAll('path')
           .data(geometry.features)
@@ -54,12 +397,48 @@ const TaiwanMap = new Vue({
           .on('click', d => {
             this.h1 = d.properties.COUNTYNAME; // 換中文名
             this.h2 = d.properties.COUNTYENG; // 換英文名
+            console.log(d.properties.COUNTYENG);
+            pie_chart("#pic", testdata, test_type);
+
             // 有 .active 存在，就移除 .active
             if(document.querySelector('.active')) {
               document.querySelector('.active').classList.remove('active');
             }
             // 被點擊的縣市加上 .active
             document.getElementById('city' + d.properties.COUNTYCODE).classList.add('active');
+          });*/
+          svg
+          .selectAll('path')
+          .data(geometry.features)
+          .enter()
+          .append('path')
+          .attr('d', path)
+          .attr('id', (d) => 'city' + d.properties.COUNTYCODE)
+          .attr('stroke', 'white') // Default stroke color
+          .on('click', function (d) {
+            this.h1 = d.properties.COUNTYNAME; // 換中文名
+            this.h2 = d.properties.COUNTYENG; // 換英文名
+            
+            d3.select('#div1').selectAll('svg').remove();
+            d3.select('#div2').selectAll('svg').remove();
+
+            pie_city("#div1", "./csv/" + d.properties.CSVNAME);
+
+            stack_city("#div2", "./csv/" + d.properties.CSVNAME);
+
+            if(document.querySelector('.active')) {
+              const clickedElement =document.querySelector('.active');
+              document.querySelector('.active').classList.remove('active');
+              clickedElement.style.fill = '#232526';
+            }
+            // // 被點擊的縣市加上 .active
+            // document.getElementById('city' + d.properties.COUNTYCODE).classList.add('active');
+            // document.querySelector('.active').classList.style('fill','red');
+            const clickedElement = document.getElementById('city' + d.properties.COUNTYCODE);
+            clickedElement.classList.add('active');
+
+            // Set the fill color of the clicked path
+            clickedElement.style.fill = 'red';
           });
       });
       return svg;
