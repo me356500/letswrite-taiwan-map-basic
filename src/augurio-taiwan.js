@@ -1,6 +1,7 @@
 
 function stacked_bar_chart(divname, data, categories, ymax, xname, width, height) {
-  var margin = {top: 100, right: 100, bottom: 100, left: 300};
+
+  var margin = {top: 100, right: 1000, bottom: 100, left: 300};
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
@@ -15,6 +16,7 @@ function stacked_bar_chart(divname, data, categories, ymax, xname, width, height
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    // .scale(mercatorScale)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -79,8 +81,8 @@ function stacked_bar_chart(divname, data, categories, ymax, xname, width, height
         tooltip.html(d.data[xname] + "<br>" + category + " : " + value)
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px")
-          .style("opacity", 1);
-
+          .style("opacity", 1)
+          .style("font-size", "52px");
       })
       .on("mouseout", function(d) {
         tooltip.style("opacity", 0);
@@ -161,7 +163,8 @@ function pie_chart(divname, data, type, width, height) {
       tooltip.html("Type: " + d.data["type"] + "<br>" + "cnt : " + d.data["cnt"])
       .style("left", (d3.event.pageX + 30) + "px")
       .style("top", (d3.event.pageY - 150) + "px")
-      .style("opacity", 1);
+      .style("opacity", 1)
+      .style("font-size", "14px");
       d3.selectAll(".pie")
           .style("fill-opacity", 0.2)
           .style("transition", "all 0.4s");
@@ -176,7 +179,8 @@ function pie_chart(divname, data, type, width, height) {
       tooltip.html("Type: " + d.data["type"] + "<br>" + "songs : " + d.data["cnt"])
       .style("left", (d3.event.pageX + 30) + "px")
       .style("top", (d3.event.pageY - 150) + "px")
-      .style("opacity", 1);
+      .style("opacity", 1)
+      .style("font-size", "50px");
       d3.selectAll(".pie")
           .style("fill-opacity", 0.2)
           .style("transition", "all 0.4s");
@@ -283,7 +287,7 @@ function stack_16_1(divname) {
   
     });
   
-    stacked_bar_chart(divname, d,  categories_16_1, 1094789841, "縣市別", 1000, 1000);
+    stacked_bar_chart(divname, d,  categories_16_1, 1094789841, "縣市別", 1500, 1000);
   });
 }
 
@@ -299,7 +303,7 @@ function stack_17_1(divname) {
   
     });
 
-    stacked_bar_chart(divname, d, categories_17_1, 100, "縣市別", 1000, 1000);
+    stacked_bar_chart(divname, d, categories_17_1, 100, "縣市別", 1500, 1000);
   });
 }
 
@@ -348,7 +352,7 @@ function stack_city(divname, csvname) {
     });
   
     console.log(d);
-    stacked_bar_chart(divname, d,  categories_16_1, ymax, "級距：萬元", 1000, 700);
+    stacked_bar_chart(divname, d,  categories_16_1, ymax, "級距：萬元", 1500, 1000);
     
   });
 
@@ -443,7 +447,7 @@ const TaiwanMap = new Vue({
             if(document.querySelector('.active')) {
               const clickedElement =document.querySelector('.active');
               document.querySelector('.active').classList.remove('active');
-              clickedElement.style.fill = '#232526';
+              clickedElement.style.fill = 'white';
             }
             // // 被點擊的縣市加上 .active
             // document.getElementById('city' + d.properties.COUNTYCODE).classList.add('active');
