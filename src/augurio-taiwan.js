@@ -428,7 +428,7 @@ const TaiwanMap = new Vue({
           .attr('d', path)
           .attr('id', (d) => 'city' + d.properties.COUNTYCODE)
           .attr('stroke', 'white') // Default stroke color
-          .on('click', function (d) {
+          .on('click', d => {
             this.h1 = d.properties.COUNTYNAME; // 換中文名
             this.h2 = d.properties.COUNTYENG; // 換英文名
             console.log(d.properties.COUNTYNAME);
