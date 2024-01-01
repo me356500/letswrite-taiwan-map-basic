@@ -125,7 +125,7 @@ function pie_chart(divname, data, type, width, height) {
 
   var radius = Math.min(width, height) / 2;
   var donutWidth = 80;
-  var legendRectSize = 18;
+  var legendRectSize = 32;
   var legendSpacing = 4;
 
 
@@ -194,26 +194,39 @@ function pie_chart(divname, data, type, width, height) {
       .style("fill-opacity", 1)})
 
   var legend = svg.selectAll('.legend')
-    .data(color.domain())
-    .enter()
-    .append('g')
-    .attr('class', 'legend')
-    .attr('transform', function(d, i) {
-      var offset = (legendRectSize + legendSpacing) * color.domain().length / 2, hor = -2 * legendRectSize;;
-      var vert = i * (legendRectSize + legendSpacing) - offset;
-      return 'translate(' + hor + ',' + vert + ')';
-    });
+  .data(color.domain())
+  .enter()
+  .append('g')
+  .attr('class', 'legend')
+  .attr('transform', function (d, i) {
+    var offset = (legendRectSize + legendSpacing) * color.domain().length / 2,
+      hor = -2 * legendRectSize;
+    var vert = i * (legendRectSize + legendSpacing) - offset;
+    return 'translate(' + hor + ',' + vert + ')';
+  });
 
-  legend.append('rect')
-    .attr('width', legendRectSize)
-    .attr('height', legendRectSize)                                   
-    .style('fill', color)
-    .style('stroke', color);
-    
-  legend.append('text')
-    .attr('x', legendRectSize + legendSpacing)
-    .attr('y', legendRectSize - legendSpacing)
-    .text(function(d) { return d; });
+legend.append('rect')
+  .attr('width', legendRectSize)
+  .attr('height', legendRectSize)
+  .style('fill', color)
+  .style('stroke', color);
+
+legend.append('text')
+  .attr('x', legendRectSize + legendSpacing)
+  .attr('y', legendRectSize - legendSpacing)
+  .text(function (d) { return d; })
+  .style('font-size', '32px'); // Adjust the font size here
+
+// Adjust rect position based on text size
+legend.selectAll('rect')
+  .attr('y', -legendRectSize / 2) // Center the rectangle vertically
+  .attr('x', -(legendRectSize + legendSpacing)); // Adjust the rectangle position
+
+// Adjust text position based on text size
+legend.selectAll('text')
+  .attr('y', 0) // Center the text vertically
+  .attr('x', 0); // Adjust the text position
+
 }
 
 
@@ -305,7 +318,7 @@ function pie_city(divname, csvname) {
       {type: '500 ~ 1000', cnt: d[6]["納稅單位"]},
       {type: ' > 1000', cnt: d[7]["納稅單位"]}
     ];
-    pie_chart(divname, testdata, categories_city, 500, 500);
+    pie_chart(divname, testdata, categories_city, 1000, 1000);
     
   });
 }
@@ -418,6 +431,7 @@ const TaiwanMap = new Vue({
           .on('click', function (d) {
             this.h1 = d.properties.COUNTYNAME; // 換中文名
             this.h2 = d.properties.COUNTYENG; // 換英文名
+            console.log(d.properties.COUNTYNAME);
             
             d3.select('#div1').selectAll('svg').remove();
             d3.select('#div2').selectAll('svg').remove();
