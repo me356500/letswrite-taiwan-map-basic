@@ -6,6 +6,21 @@ body,
     overflow: hidden
 }
 
+/* give same space for map & shop-list */
+#app {
+display: flex;
+}
+
+.taiwan-map {
+flex: 1; /* Takes up remaining space */
+margin-right: 20px; /* Optional margin between taiwan-map and shop-list */
+}
+
+.shop-list {
+flex: 2; /* Takes up remaining space */
+}
+
+
 body {
     letter-spacing: 1px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "微軟正黑體", "Microsoft JhengHei"
@@ -47,7 +62,7 @@ body {
 }
 
 #map path {
-    transform: scale(2); /* 縮放兩倍 */
+    transform: scale(4); /* 縮放兩倍 */
     transform-origin: center center; /* 讓縮放的中心點為圖形的中心 */
 }
 
@@ -61,6 +76,8 @@ body {
     transition: fill .2s ease, stroke .2s ease, transform .2s ease, -webkit-transform .2s ease;
     /* width: 1700px;
     height: 1700px; */
+    float: left;
+    width: 30%;
 }
 
 
@@ -70,8 +87,10 @@ body {
     stroke: #FFCA28;
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
-    transform: scale(2); /* 縮放兩倍 */
+    transform: scale(4); /* 縮放兩倍 */
     transform-origin: center center; /* 讓縮放的中心點為圖形的中心 */
+    float: left;
+    width: 30%;
 }
 
 h1,
