@@ -38,7 +38,7 @@
       
       <div class="taiwan-map" ref="map">
         <div id="map">d
-          <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+          <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" width="1200" height="2000"></svg>
         </div>
         
       </div>
@@ -68,4 +68,15 @@
     <script src="./src/augurio-taiwan.js"></script>
     
   </body>
+  <style>
+    .taiwan-map {
+      width: 100%; /* 地圖容器寬度為100% */
+      height: 100%; /* 地圖容器高度為100% */
+    }
+  
+    #svg {
+      width: 100%; /* SVG寬度為100% */
+      height: 100%; /* SVG高度為100% */
+    }
+  </style>
 </html>
