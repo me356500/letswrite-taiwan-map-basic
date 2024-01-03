@@ -301,6 +301,7 @@ function stack_16_1() {
     });
 
     stacked_bar_chart("#sbc-figure", d,  categories_16_1, 1094789841, "縣市別", 1500, 1000);
+    $("#sbc-figure").show();
   });
 }
 
