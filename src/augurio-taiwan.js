@@ -5,6 +5,8 @@ function stacked_bar_chart(divname, data, categories, ymax, xname, width, height
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
+  d3.select(divname).select("svg").remove();
+
   var tooltip = d3
   .select(divname)
   .append("div")
@@ -78,7 +80,14 @@ function stacked_bar_chart(divname, data, categories, ymax, xname, width, height
        
         var value = d.data[category]; 
 
-        tooltip.html(d.data[xname] + "<br>" + category + " : " + value)
+        var total = 0;
+        for (var i = 0; i < categories.length; ++i)
+            total += parseInt(d.data[categories[i]]);
+        
+        var proportion = value / total * 100.0;
+
+
+        tooltip.html(d.data[xname] + "<br>" + category + " : " + value + "<br>" + "Proportion : " + proportion.toFixed(2) + "%")
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px")
           .style("opacity", 1)
@@ -271,7 +280,11 @@ var categories_16_1 = [
   '股利所得'
 ]
 
-function stack_16_1(divname) {
+function stack_16_1() {  
+  $(".shop-list").hide();
+  $(".taiwan-map").hide();
+  $("#back").show();
+  $("#sbc-click").hide();
   d3.csv("./src/16_1.csv", function(d) {
 
     d = d.slice(0, -1);
@@ -286,9 +299,17 @@ function stack_16_1(divname) {
       delete data["薪資收入"];
   
     });
-  
-    stacked_bar_chart(divname, d,  categories_16_1, 1094789841, "縣市別", 1500, 1000);
+
+    stacked_bar_chart("#sbc-figure", d,  categories_16_1, 1094789841, "縣市別", 1500, 1000);
   });
+}
+
+function restore() {
+  $(".shop-list").show();
+  $(".taiwan-map").show();
+  $("#sbc-figure").hide();
+  $("#back").hide();
+  $("#sbc-click").show();
 }
 
 function stack_17_1(divname) {
@@ -366,6 +387,9 @@ const TaiwanMap = new Vue({
   },
   methods: {
     async getTaiwanMap() {
+
+      $("#back").hide();
+
       const width = (this.$refs.map.offsetWidth).toFixed(),
             height = (this.$refs.map.offsetHeight).toFixed();
 

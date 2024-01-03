@@ -23,7 +23,13 @@ body,
 }
 
 
-
+#sbc-click, #back {
+    cursor: pointer;
+    font-size: 30px;
+    text-align: center;
+    color: red;
+    font-family: 'Montserrat', sans-serif;
+}
 
 body {
     letter-spacing: 1px;
