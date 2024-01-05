@@ -285,6 +285,7 @@ function stack_16_1() {
   $(".taiwan-map").hide();
   $("#back").show();
   $("#sbc-click").hide();
+  $("#sbc-figure2").hide();
   d3.csv("./src/16_1.csv", function(d) {
 
     d = d.slice(0, -1);
@@ -309,11 +310,18 @@ function restore() {
   $(".shop-list").show();
   $(".taiwan-map").show();
   $("#sbc-figure").hide();
+  $("#sbc-figure2").hide();
   $("#back").hide();
   $("#sbc-click").show();
+  $("#sbc-click2").show();
 }
 
-function stack_17_1(divname) {
+function stack_17_1() {
+  $(".shop-list").hide();
+  $(".taiwan-map").hide();
+  $("#back").show();
+  $("#sbc-click2").hide();
+  $("#sbc-figure").hide();
   d3.csv("./src/17_1.csv", function(d) {
   
     d = d.slice(0, -1);
@@ -325,7 +333,8 @@ function stack_17_1(divname) {
   
     });
 
-    stacked_bar_chart(divname, d, categories_17_1, 100, "縣市別", 1500, 1000);
+    stacked_bar_chart("#sbc-figure2", d, categories_17_1, 100, "縣市別", 1800, 2000);
+    $("#sbc-figure2").show();
   });
 }
 
