@@ -169,7 +169,7 @@ function pie_chart(divname, data, type, width, height) {
     .attr("id", (d, i) => {return `pie-${i}`})
     .on("mouseover", function(d, i) {
 
-      tooltip.html("Type: " + d.data["type"] + "<br>" + "cnt : " + d.data["cnt"])
+      tooltip.html("級距(萬元): " + d.data["type"] + "<br>" + "納稅單位 : " + d.data["cnt"])
       .style("left", (d3.event.pageX + 30) + "px")
       .style("top", (d3.event.pageY - 150) + "px")
       .style("opacity", 1)
@@ -185,7 +185,8 @@ function pie_chart(divname, data, type, width, height) {
     })
     .on("mousemove", function(d, i) {
 
-      tooltip.html("Type: " + d.data["type"] + "<br>" + "songs : " + d.data["cnt"])
+
+      tooltip.html("級距(萬元): " + d.data["type"] + "<br>" + "納稅單位 : " + d.data["cnt"])
       .style("left", (d3.event.pageX + 30) + "px")
       .style("top", (d3.event.pageY - 150) + "px")
       .style("opacity", 1)
@@ -374,15 +375,12 @@ function stack_city(divname, csvname) {
         ymax = parseInt(data["合 計"]);
     })
 
-    console.log(ymax);
-  
     d.forEach(function(data) {
       delete data["納稅單位"];
       delete data["合 計"];
   
     });
   
-    console.log(d);
     stacked_bar_chart(divname, d,  categories_16_1, ymax, "級距：萬元", 1500, 1000);
     
   });
@@ -469,8 +467,7 @@ const TaiwanMap = new Vue({
           .on('click', d => {
             this.h1 = d.properties.COUNTYNAME; // 換中文名
             this.h2 = d.properties.COUNTYENG; // 換英文名
-            console.log(d.properties.COUNTYNAME);
-            
+
             d3.select('#div1').selectAll('svg').remove();
             d3.select('#div2').selectAll('svg').remove();
 
